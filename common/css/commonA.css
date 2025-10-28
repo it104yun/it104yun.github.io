@@ -1,0 +1,201 @@
+:root {
+    /* Color from : https://www.shutterstock.com/zh-Hant/blog/101-free-color-combinations-design-inspiration */
+    /* 說明 : Home  免費下載  激發你的設計靈感!! 讓人愛不釋手的101組配色方案 */
+        /* 01.舒適與中性(Comfy & Neutral) */
+        --ComfyNeutral_mushroom : #E1DCD9;
+        --ComfyNeutral_elephant : #8F8681;
+        --ComfyNeutral_thatch : #A67F78;       /* 茅草(稻草)        */
+        --ComfyNeutral_gunmetal : #32435F;     /* 砲銅的；青銅的  */     
+
+        /* 03.薄霧綠(Misty Greens) */
+        --MistyGreen_swansup: #edfded;    /*天鵝的絨毛；用於做嬰兒衣服的柔軟的布料*/
+        --MistyGreen_swansdown : #D1EDE1;      /*天鵝的絨毛；用於做嬰兒衣服的柔軟的布料*/
+        --MistyGreen_larchmere : #7BC5AE;      /*larch:落葉松屬植物 */
+        --MistyGreen_bright: #05fc4f;
+        --MistyGreen_observatory : #028C6A;    /*天文臺；氣象臺 */
+        --MistyGreen_kaitoke : #003E19;    /*Kaitoke Regional Park */
+        --MistyGreen_heavy: #002A0A;
+}
+
+
+.body_style1 {
+    background-color: var(--ComfyNeutral_mushroom);
+    color: var(--ComfyNeutral_gunmetal);
+}
+
+.block_x:hover{
+    background-color: var(--MistyGreen_larchmere);
+}
+
+.bg-cover {
+    background-size: cover;
+    background-position: center center;
+}
+
+.myborder {
+    border: 2px solid var(--ComfyNeutral_gunmetal);
+}
+
+.timeline {
+    position: relative;
+}
+.timeline:before{
+    content: "";
+    position: absolute;
+    background-color: var(--MistyGreen_kaitoke);
+    top: 0;
+    bottom: 0;
+    width: 10px;
+    left: 50%;
+    /* transform: translate(-50%, -50%); */
+    transform: translate(-50%);
+}
+
+
+.timeline-pointer {
+    position: relative;
+}
+.timeline-pointer:before{
+    content: "";
+    position: absolute;
+    background-color: var(--MistyGreen_swansdown);
+    border: 5px solid var(--MistyGreen_kaitoke);
+    border-radius: 50%;
+    top: 10px;
+    bottom: 0;
+    width: 25px;
+    height: 25px;
+    left: 50%;
+    /* transform: translate(-50%, -50%); */
+    transform: translate(-50%);
+}
+.timeline-pointer:hover:before{
+    background-color: var(--MistyGreen_kaitoke);
+    border: 5px solid var(--MistyGreen_swansdown);
+    width: 50px;
+    height: 50px;
+}
+
+@media screen and (max-width: 768px) {
+    .timeline:before,.timeline-pointer:before{
+        display: none;
+    }
+}
+
+.mybtn {
+    background-color: var(--MistyGreen_kaitoke);
+    border: 1px solid var(--MistyGreen_swansdown);
+    border-radius: 20px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    font-size: 16px;
+    letter-spacing: 5PX;
+    font-weight: bolder;
+    color: var(--MistyGreen_swansdown);
+    text-decoration: none;
+    margin-bottom: 5px;
+}
+
+.mybtn:hover{
+    background-color: var(--MistyGreen_swansdown);
+    border: 1px solid var(--MistyGreen_kaitoke);
+    box-shadow: 5px 5px 5px black;
+    color: var(--MistyGreen_kaitoke);
+}
+
+
+/* Myworks style---------------------------------------------------------------------------------------------------- Begin */
+
+.titlePhoto {
+    width: 360px;
+    height: 360px;
+    /* border: 0.5px solid var(--ComfyNeutral_gunmetal); */
+    border-radius: 50%;
+    /* box-shadow: -6px 0 black,0px 6px black,6px 0 black,0 -6px black; */
+    box-shadow:
+        inset 0 -10px 10px 0 #ddd,
+        inset 10px 0 10px 0 #ddd,
+        inset -10px 0 10px 0 #ddd,
+        inset 0 -20px 20px 0 #a09f9b,
+        0 16px 10px 0px #272a27;
+}
+
+.titlePhoto:hover {
+    box-shadow: -6px 0 palevioletred, 0 6px lightgoldenrodyellow, 6px 0 yellow, 0 -6px palevioletred;
+}
+
+.myName{
+    letter-spacing: 44px;
+    font-size: 66px;
+    font-family: 'Noto Sans TC', sans-serif;
+    text-shadow: -2px 0 yellow, 0 1px palevioletred, 1px 0 lightgoldenrodyellow, 0 -2px palevioletred;
+}
+
+
+.fileTitle {
+    width: 140px;
+    height:140px;
+    border: 5px solid var(--ComfyNeutral_gunmetal);
+    border-radius: 50%;
+    background-color: var(--ComfyNeutral_thatch);
+    line-height: 140px;
+    text-align: center;
+}
+
+.fileTitle:hover{
+    border: 2px solid var(--ComfyNeutral_thatch);
+    background-color: var(--ComfyNeutral_mushroom);
+}
+
+.fileTitle a{
+    text-decoration: none;
+    font-size: 20px;
+    /* font-weight: lighter; */
+    font-family: 'Noto Sans TC', sans-serif;
+    color: var(--ComfyNeutral_gunmetal);
+}
+
+@media screen and (max-width:  576px) {  
+    .titlePhoto {
+        width: 300px;
+        height: 300px;
+        /* border: 0.5px solid var(--ComfyNeutral_gunmetal); */
+        border-radius: 50%;
+    }  
+
+    .myName{
+        letter-spacing: 5px;
+        font-size: 38px;
+        font-family: 'Noto Sans TC', sans-serif;
+    }
+
+    .fileTitle {
+        width: 90px;
+        height:90px;
+        border: 2px solid var(--ComfyNeutral_gunmetal);
+        line-height: 90px;
+    } 
+
+    .fileTitle a{
+        font-size: 16px;
+    }
+}
+
+@media screen and (max-width:  768px) {  
+    .myName{
+        letter-spacing: 10px;
+        font-size: 44px;
+    }
+
+    .fileTitle {
+        width: 110px;
+        height:110px;
+        line-height: 110px;
+    } 
+
+    .fileTitle a{
+        font-size: 20px;
+    }
+}
+
