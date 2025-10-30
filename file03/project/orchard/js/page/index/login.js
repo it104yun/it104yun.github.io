@@ -3,13 +3,15 @@ var cookie_ary = ['UID01', 'UID02', 'UID03'];
 buttonController("index","logout","");         //（初始化）預設為logout，待下方判斷完成，由下方判斷
 cookieValidate("index",cookie_ary);
 $(function () { 
-    $("#btn_logout").click(function () { 
-        for (var i = 0; i < cookie_ary.length; i++){
-            setCookie(cookie_ary[i], "", -1);
-        };
-        location.reload();
-        buttonController("index","logout","");
-    });
+    // $("#btn_logout").click(function () { 
+    //     for (var i = 0; i < cookie_ary.length; i++){
+    //         setCookie(cookie_ary[i], "", -1);
+    //     };
+    //     location.reload();
+    //     buttonController("index","logout","");
+    // });
+
+    user_has_logout(cookie_ary, "index");
 
     $("#login_submit").click(function () { 
         user_id = $("#user_id").val();

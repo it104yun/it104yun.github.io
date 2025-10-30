@@ -9,13 +9,14 @@ $(function () {
         location.href = "index.html";
     };
     */
-    $("#btn_logout").click(function () { 
-        for (var i = 0; i < cookie_ary.length; i++){
-            setCookie(cookie_ary[i], "", -1);
-        };
-        location.reload;
-        buttonController("index","logout","");
-    });
+    // $("#btn_logout").click(function () { 
+    //     for (var i = 0; i < cookie_ary.length; i++){
+    //         setCookie(cookie_ary[i], "", -1);
+    //     };
+    //     location.reload;
+    //     buttonController("index","logout","");
+    // });
+    user_has_logout(cookie_ary, "sys_manager");
 
     $("#cust_manage_all_row").click(function () {
         click_load_all_data();

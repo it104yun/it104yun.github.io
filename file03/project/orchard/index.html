@@ -8,10 +8,12 @@
     <!-- third-party css -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/all.min.css">
+    <!--OSM Open Street Map 定位圖資--><link rel="stylesheet" href="js/third_party/leaflet1.9.3/leaflet.css" > 
 
     <!-- this css -->
     <link rel="stylesheet" href="css/common_x.css">
     <link rel="stylesheet" href="css/common_t.css">
+    <link rel="stylesheet" href="css/common_travel_map.css">
 
     <style>
       @media screen and (min-width: 992px) {
@@ -42,27 +44,67 @@
            font-size: 13px;
         }
       }
+
+      .section-line {
+				display: flex;
+				flex-direction: row;
+      }
+			
+			.section-line:before,
+			.section-line:after {
+				content: "";
+				flex: 1 1;
+				/* border-bottom: 2px outset green; */
+				/* border-bottom: 2px dashed #004d00; */
+				/* border-bottom: 2.5px dotted #004d00; */
+				border-bottom: 6px dotted #ffffff;
+				margin: auto;
+			}
+
+
+      .s09-text {
+          background-color: rgba(0, 0, 0, 0.3);
+          margin: 15px;
+      }
+
+      @media screen and (max-width: 768px) {
+
+          .s05-text,
+          .s07-text {
+              background-color: rgba(0, 0, 0, 0.3);
+              margin-top: 15px;
+              margin-bottom: 15px;
+              padding: 15px;
+              color: yellow;
+          }
+
+          .s05-img {
+              right: 0px;
+          }
+
+          .s07-img {
+              left: 0;
+          }
+      }
     </style>
 
-    <title>綠野の果市</title>
+    <title>許家の果園</title>
 </head>
 <body style="background-color: DarkOliveGreen;">
+<div  id="vue_app">
     <!-- section-1 fb,line,twitter-->
-    <section class="text-light">
-        <div class="container">
-            <div class="text-end">
+    <section class="text-success">
+          <div class="text-end">
+            <div class="fs-1 gf gfw900 d-inline-block me-2">許家の果園</div>
+              <a href="https://www.facebook.com/profile.php?id=100077998585279" target="_blank">
                 <i class="fa-brands fa-square-facebook fs-3 text-primary me-sm-0 me-md-1 me-xxl-2"></i>
-                <i class="fa-brands fa-square-twitter  fs-3 text-info me-sm-0  me-md-1 me-xxl-2"></i>
-                <i class="fa-brands fa-line fs-3 text-success"></i>
-            </div>
-        </div>
+              </a>
+              <i class="fa-brands fa-line fs-3 text-success me-2"></i>
+          </div>
     </section>
 
    <!-- section-2 linking-->
     <section class="text-bg-success sticky-top">
-        <div class="d-inline-block">
-          <div class="display-6 gf gfw900 text-white">綠野の果市</div>
-        </div>
         <div class="container d-inline-block">
           <nav class="navbar navbar-expand-lg navbar-dark navbar-brand">
               <div class="container-fluid">
@@ -74,23 +116,24 @@
                     <li class="nav-item">
                       <a class="nav-link active" aria-current="page" href="#"><i class="fa-solid fa-house">首頁</i></a>
                     </li>
+                    <li class="nav-item"><a class="nav-link" href="#latest_news">最新消息</a></li>
                     <li class="nav-item"><a class="nav-link" href="#about_us">關於我們</a></li>
                     <li class="nav-item"><a class="nav-link" href="#online_order">線上訂購</a></li>
                     <li class="nav-item"><a class="nav-link" href="#orchard_browser">園區導覽</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#countryside">農業旅遊(老師)</a></li>
+                    <li class="nav-item"><a class="nav-link" href="vue_openData_Set_Select.html">VUE展示</a></li>
                   </ul>
                 </div>
                 <form role="search">
                   <button type="button" class="btn btn-sm btn-success border-dark" data-bs-toggle="modal" data-bs-target="#login" id="btn_login"><i class="fa-solid fa-right-to-bracket">登入</i></button>
                   <button type="button" class="btn btn-sm btn-success border-dark" data-bs-toggle="modal" data-bs-target="#register" id="btn_register"><i class="fa-solid fa-registered">註冊</i></button>
                   <button type="button" class="btn btn-sm btn-success border-dark" data-bs-toggle="modal" data-bs-target="#cust_info" id="btn_cust_info" style="display: none;"><i class="fa-solid fa-user">會員資訊</i></button>
-                  <button type="button" class="btn btn-sm btn-success border-dark" data-bs-toggle="modal" data-bs-target="#show_cart" id="btn_cart" style="display: none;"><i class="fa-solid fa-cart-plus">購物車</i></button>
-                  <a class="btn btn-sm btn-success border-dark ms-2" href="sys_manage.html" id="btn_manager" style="display: none;"><i class="fa-solid fa-list-check">後台管理</i></a>
+                  <!-- <button type="button" class="btn btn-sm btn-success border-dark" data-bs-toggle="modal" data-bs-target="#show_cart" id="btn_cart" style="display: none;"><i class="fa-solid fa-cart-plus">購物車</i></button> -->
+                  <a class="btn btn-sm btn-success border-dark ms-2" href="manage_dashboard.html" id="btn_manager" style="display: none;"><i class="fa-solid fa-gauge"></i>管理看板</a>
                   <span class="ms-5">
                     <span class="text-bg-success gfw900" id="welcome_msg"></span>
                     <button type="button" class="btn btn-sm btn-danger rounded-circle" id="btn_logout" style="display: none;"><i class="fa-solid fa-right-to-bracket">登出</i></button>
                   </span>
-                  <!-- <span class="text-light gfw900 ms-5" id="welcome_msg"></span>
-                  <button type="button" class="btn btn-sm btn-danger border-white border-5 rounded-circle fw-bolder" id="btn_logout" style="height:60px;" style="display: none;"><i class="fa-solid fa-right-to-bracket">登出</i></button> -->
                 </form>
               </div>
             </nav>
@@ -149,57 +192,427 @@
       </button>
     </div>
   </section>
-  <!-- section-4 cart -->
-  <hr>
-  <section class="text-dark mt-3 mb-3" id="online_order">
-    <div class="h2 gf gfw700" style="letter-spacing: 2px;"><i class="fa-solid fa-cart-plus">線上訂購</i><i class="fa-solid fa-cart-plus"></i></div>
+  <!-- section-5 news -->
+  <section class="text-dark mt-3 mb-3" id="latest_news">
+      <div class="h2 gf gfw700 text-center" style="letter-spacing: 2px;">
+          <div class="section-line">
+            <i class="fa-brands fa-neos"></i>
+              <i class="fa-brands fa-pagelines"></i>
+                最新消息
+              <i class="fa-brands fa-pagelines"></i>
+            <i class="fa-brands fa-neos"></i>
+          </div>
+        <div class="h4 gf gfw300">火龍果: 今年產季有約至2022/12/15，大約剩約50顆中果，已有訂購約40顆，僅剩１０顆....</div>
+        <div class="h4 gf gfw300">砂糖橘: 今年可採收期大約為2022/12/2８～2023/2/28，第一批採收的不開放訂購，但歡迎您來試吃。</div>
+        <div class="h4 gf gfw300">藍莓：試栽重中, 目前未開放訂購; 已熟成，可至園參觀採摘....不收費，但請您事先預約哦！（數量極為有限）。</div>
+        <div class="h4 gf gfw300">巴西櫻桃 ：將在2023/1/15熟成，可至園參觀採摘....不收費，但請您事先預約哦！（數量極為有限）。</div>
+      </div>
   </section>
-
-  <!-- section-5 about us -->
-  <hr>
-  <section class="text-dark mt-3 mb-3" id="about_us">
-    <div class="h2 gf gfw700" style="letter-spacing: 2px;"><i class="fa-solid fa-person-circle-question">關於我們</i><i class="fa-solid fa-person-circle-question"></i></div>
-  </section>
-
   <!-- section-6 cart -->
-  <hr>
-  <section class="text-dark mt-3 mb-3" id="orchard_browser">
-    <div class="h2 gf gfw700" style="letter-spacing: 2px;"><i class="fa-solid fa-tree">園區導覽</i><i class="fa-solid fa-tree"></i></div>
-  </section>
-  <hr>
-  <section class="text-light mt-3 mb-3" id="online_order">
+  <section class="text-dark mt-3 mb-3" id="online_order">
+    <div class="h2 gf gfw700 text-center" style="letter-spacing: 2px;">
+      <div class="section-line">
+        <i class="fa-solid fa-cart-plus"></i>
+        線上訂購
+        <i class="fa-solid fa-cart-plus"></i>
+      </div>
+    </div>
+
+    <!-- 本段使用vue撰寫 -->
+    <div class="container border border-2 border-danger rounded-2 pt-1 pb-3">
+      <div class="text-end">
+          <button class="btn btn-success px-5 text-end">前往結帳</button>
+      </div>
+      <div class="display-4">{{ demo }}</div>
+      <hr>
+      <div id="cart_lists" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+          <div v-for="(itemA, indexA) in myCart" :class="['carousel-item', { active: indexA === 0 }]">
+
+            <div v-for="(item,index) in itemA[indexA]">
+              <img :src="item.picture1" class="d-block w-100" alt="item.name">
+              <div class="carousel-caption d-none d-md-block">
+                <h5>{{ index }}</h5>
+                <p>{{ item.name }}</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <button class="carousel-control-prev" type="button" data-bs-target="#cart_lists" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon border border-3 border-secondary rounded rounded-circle" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#cart_lists" data-bs-slide="next">
+          <span class="carousel-control-next-icon border border-3 border-secondary rounded rounded-circle" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+
+      </div>
+    </div>
+
     <div class="container">
-      <div class="row">
-        <div class="col-2 d-flex flex-column  position-relative me-3">
+      <div class="row" id="product_show">
+        <!-- column_1 ----------------------------------------  d-flex flex-column 是為了讓"選購.滿格"-->
+        <div class="col-sm-6 col-md-4 col-lg-3 p-1">
+          <div class="d-flex flex-column border border-secondary rounded-2 p-4">
+            <img id="item_img_sm" src="https://fakeimg.pl/200x100/ffaa00/000000?text=FruitImage01&font=lobster&font_size=30" class="img-fluid">
+            <div id="item_name" class="text-center gf gfw400 h4">紅肉火龍果</div>
+            <div class="gf gfw100 h6">
+              <span class="text-bg-secondary px-1">每顆果重</span>
+              <span id="weight" class="text-dark fw-bold">475</span>
+              <span id="weight_unit" class="text-dark fw-bold">公克</span>
+            </div>
+            <div class="text-bg-secondary">
+              <div >
+                <span id="pkg_content">中型禮盒</span>
+                <span id="pkg_weight">10斤(約10顆)</span>
+              </div>
+            </div>
+            <div class="gf gfw100 h6 mt-2">
+              <label class="text-bg-secondary px-1" for="order_qty">數量</label >
+              <input id="order_qty" class="text-dark fw-bold" type="number" min="1" max="10" value="1">
+            </div>
+            <button class="btn btn-outline-secondary">選購</button>
+          </div>
         </div>
-        <!-- <div class="col-sm-6 col-md-4 col-xl-3 d-flex flex-column m-2 p-2 border border-1 border-secondary rounded-3 block_x">   -->
-        <div class="col-4 pityta-box d-flex flex-column">  
-            <div class="pityta-name mt-0">紅肉火龍果</div>
-            <img src="images/cart/pitaya.png" alt="紅肉火龍果" class='img-fluid m-auto' width="40%">
-            <h4>單價:$500/盒</h4>
-            <h4 class="mb-auto">包裝:12顆禮盒裝,10斤</h4>
-            <!-- <button class='pityta-btn'>加入購物車</buttom> -->
-            <a class="pityta-cart-btn mb-0"' href="#btn_cart" data-bs-toggle="modal" data-bs-target="#show_cart"><i class="fa-solid fa-cart-plus">加入購物車</i></a>
+        <!-- column_2 ----------------------------------------  d-flex flex-column 是為了讓"選購.滿格"-->
+        <div class="col-sm-6 col-md-4 col-lg-3 p-1">
+          <div class="d-flex flex-column border border-secondary rounded-2 p-4">
+            <img id="item_img_sm" src="https://fakeimg.pl/200x100/00ffaa/000000?text=FruitImage02&font=lobster&font_size=30" class="img-fluid">
+            <div id="item_name" class="text-center gf gfw400 h4">白肉火龍果</div>
+            <div class="gf gfw100 h6">
+              <span class="text-bg-secondary px-1">每顆果重</span>
+              <span id="weight" class="text-dark fw-bold">500</span>
+              <span id="weight_unit" class="text-dark fw-bold">公克</span>
+            </div>
+            <div class="text-bg-secondary">
+              <div >
+                <span id="pkg_content">中型禮盒</span>
+                <span id="pkg_weight">10斤(約10顆)</span>
+              </div>
+            </div>
+            <div class="gf gfw100 h6 mt-2">
+              <label class="text-bg-secondary px-1" for="order_qty">數量</label >
+              <input id="order_qty" class="text-dark fw-bold" type="number" min="1" max="10" value="1">
+            </div>
+            <button class="btn btn-outline-secondary">選購</button>
+          </div>
         </div>
-        <div class="col-4 tangerine-box ms-5 d-flex flex-column">  
-            <div class="tangerine-name mt-0">砂糖橘</div>
-            <img src="images/cart/tangerine.png" alt="砂糖橘" class='img-fluid m-auto' width="40%">
-            <h4>單價:$500/盒</h4>
-            <h4>包裝:12顆禮盒裝,10斤</h4>
-            <a class='tangerine-cart-btn mt-auto' href="#cart" data-bs-toggle="modal" data-bs-target="#show_cart"><i class="fa-solid fa-cart-plus">加入購物車</i></a>
+        <!-- column_3 ----------------------------------------  d-flex flex-column 是為了讓"選購.滿格"-->
+        <div class="col-sm-6 col-md-4 col-lg-3 p-1">
+          <div class="d-flex flex-column border border-secondary rounded-2 p-4">
+            <img id="item_img_sm" src="https://fakeimg.pl/200x100/aa00ff/000000?text=FruitImage03&font=lobster&font_size=30" class="img-fluid">
+            <div id="item_name" class="text-center gf gfw400 h4">粉色火龍果</div>
+            <div class="gf gfw100 h6">
+              <span class="text-bg-secondary px-1">每顆果重</span>
+              <span id="weight" class="text-dark fw-bold">300</span>
+              <span id="weight_unit" class="text-dark fw-bold">公克</span>
+            </div>
+            <div class="text-bg-secondary">
+              <div >
+                <span id="pkg_content">中型禮盒</span>
+                <span id="pkg_weight">10斤(約10顆)</span>
+              </div>
+            </div>
+            <div class="gf gfw100 h6 mt-2">
+              <label class="text-bg-secondary px-1" for="order_qty">數量</label >
+              <input id="order_qty" class="text-dark fw-bold" type="number" min="1" max="10" value="1">
+            </div>
+            <button class="btn btn-outline-secondary">選購</button>
+          </div>
+        </div>
+        <!-- column_4 ----------------------------------------  d-flex flex-column 是為了讓"選購.滿格"-->
+        <div class="col-sm-6 col-md-4 col-lg-3 p-1">
+          <div class="d-flex flex-column border border-secondary rounded-2 p-4">
+            <img id="item_img_sm" src="https://fakeimg.pl/200x100/00ddff/000000?text=FruitImage04&font=lobster&font_size=30" class="img-fluid">
+            <div id="item_name" class="text-center gf gfw400 h4">香水柳橙</div>
+            <div class="gf gfw100 h6">
+              <span class="text-bg-secondary px-1">每顆果重</span>
+              <span id="weight" class="text-dark fw-bold">80</span>
+              <span id="weight_unit" class="text-dark fw-bold">公克</span>
+            </div>
+            <div class="text-bg-secondary">
+              <div >
+                <span id="pkg_content">中型禮盒</span>
+                <span id="pkg_weight">10斤(約10顆)</span>
+              </div>
+            </div>
+            <div class="gf gfw100 h6 mt-2">
+              <label class="text-bg-secondary px-1" for="order_qty">數量</label >
+              <input id="order_qty" class="text-dark fw-bold" type="number" min="1" max="10" value="1">
+            </div>
+            <button class="btn btn-outline-secondary">選購</button>
+          </div>
+        </div>
+        
+        <!-- column_5 ----------------------------------------  d-flex flex-column 是為了讓"選購.滿格"-->
+        <div class="col-sm-6 col-md-4 col-lg-3 p-1">
+          <div class="d-flex flex-column border border-secondary rounded-2 p-4">
+            <img id="item_img_sm" src="https://fakeimg.pl/200x100/ffff00/000000?text=FruitImage05&font=lobster&font_size=30" class="img-fluid">
+            <div id="item_name" class="text-center gf gfw400 h4">紅肉火龍果</div>
+            <div class="gf gfw100 h6">
+              <span class="text-bg-secondary px-1">每顆果重</span>
+              <span id="weight" class="text-dark fw-bold">475</span>
+              <span id="weight_unit" class="text-dark fw-bold">公克</span>
+            </div>
+            <div class="text-bg-secondary">
+              <div >
+                <span id="pkg_content">中型禮盒</span>
+                <span id="pkg_weight">10斤(約10顆)</span>
+              </div>
+            </div>
+            <div class="gf gfw100 h6 mt-2">
+              <label class="text-bg-secondary px-1" for="order_qty">數量</label >
+              <input id="order_qty" class="text-dark fw-bold" type="number" min="1" max="10" value="1">
+            </div>
+            <button class="btn btn-outline-secondary">選購</button>
+          </div>
+        </div>
+        <!-- column_6 ----------------------------------------  d-flex flex-column 是為了讓"選購.滿格"-->
+        <div class="col-sm-6 col-md-4 col-lg-3 p-1">
+          <div class="d-flex flex-column border border-secondary rounded-2 p-4">
+            <img id="item_img_sm" src="https://fakeimg.pl/200x100/00ffff/000000?text=FruitImage06&font=lobster&font_size=30" class="img-fluid">
+            <div id="item_name" class="text-center gf gfw400 h4">白肉火龍果</div>
+            <div class="gf gfw100 h6">
+              <span class="text-bg-secondary px-1">每顆果重</span>
+              <span id="weight" class="text-dark fw-bold">500</span>
+              <span id="weight_unit" class="text-dark fw-bold">公克</span>
+            </div>
+            <div class="text-bg-secondary">
+              <div >
+                <span id="pkg_content">中型禮盒</span>
+                <span id="pkg_weight">10斤(約10顆)</span>
+              </div>
+            </div>
+            <div class="gf gfw100 h6 mt-2">
+              <label class="text-bg-secondary px-1" for="order_qty">數量</label >
+              <input id="order_qty" class="text-dark fw-bold" type="number" min="1" max="10" value="1">
+            </div>
+            <button class="btn btn-outline-secondary">選購</button>
+          </div>
+        </div>
+        <!-- column_7 ----------------------------------------  d-flex flex-column 是為了讓"選購.滿格"-->
+        <div class="col-sm-6 col-md-4 col-lg-3 p-1">
+          <div class="d-flex flex-column border border-secondary rounded-2 p-4">
+            <img id="item_img_sm" src="https://fakeimg.pl/200x100/55ff99/000000?text=FruitImage07&font=lobster&font_size=30" class="img-fluid">
+            <div id="item_name" class="text-center gf gfw400 h4">粉色火龍果</div>
+            <div class="gf gfw100 h6">
+              <span class="text-bg-secondary px-1">每顆果重</span>
+              <span id="weight" class="text-dark fw-bold">300</span>
+              <span id="weight_unit" class="text-dark fw-bold">公克</span>
+            </div>
+            <div class="text-bg-secondary">
+              <div >
+                <span id="pkg_content">中型禮盒</span>
+                <span id="pkg_weight">10斤(約10顆)</span>
+              </div>
+            </div>
+            <div class="gf gfw100 h6 mt-2">
+              <label class="text-bg-secondary px-1" for="order_qty">數量</label >
+              <input id="order_qty" class="text-dark fw-bold" type="number" min="1" max="10" value="1">
+            </div>
+            <button class="btn btn-outline-secondary">選購</button>
+          </div>
+        </div>
+        <!-- column_8 ----------------------------------------  d-flex flex-column 是為了讓"選購.滿格"-->
+        <div class="col-sm-6 col-md-4 col-lg-3 p-1">
+          <div class="d-flex flex-column border border-secondary rounded-2 p-4">
+            <img id="item_img_sm" src="https://fakeimg.pl/200x100/ff00dd/000000?text=FruitImage08&font=lobster&font_size=30" class="img-fluid">
+            <div id="item_name" class="text-center gf gfw400 h4">香水柳橙</div>
+            <div class="gf gfw100 h6">
+              <span class="text-bg-secondary px-1">每顆果重</span>
+              <span id="weight" class="text-dark fw-bold">80</span>
+              <span id="weight_unit" class="text-dark fw-bold">公克</span>
+            </div>
+            <div class="text-bg-secondary">
+              <div >
+                <span id="pkg_content">中型禮盒</span>
+                <span id="pkg_weight">10斤(約10顆)</span>
+              </div>
+            </div>
+            <div class="gf gfw100 h6 mt-2">
+              <label class="text-bg-secondary px-1" for="order_qty">數量</label >
+              <input id="order_qty" class="text-dark fw-bold" type="number" min="1" max="10" value="1">
+            </div>
+            <button class="btn btn-outline-secondary">選購</button>
+          </div>
         </div> 
+
 
       </div>
     </div>
   </section>
 
-<!-- section-4 footer -->
-  <!-- <section class="text-bg-success sticky-bottom"> -->
+  <!-- section-7 about us -->
+  <section class="text-dark mt-3 mb-3 bg-light bg-light" id="about_us">
+    <div class="h2 gf gfw700 text-center bg-secondary" style="letter-spacing: 2px;">
+      <div class="section-line">
+        <i class="fa-solid fa-person-circle-question"></i>
+        關於我們
+        <i class="fa-solid fa-person-circle-question"></i>
+      </div>
+    </div>
+
+    <div class="h3 gf gfw300 text-center">因為採自然農法、希望土地永續富饒；我們的果物無毒、鮮美、老少咸宜。</div>
+    <div class="h5 gf gfw100">許爸爸在自家農田裏，搭上棚架，閒暇之餘種上些水果，送給親戚、朋友們品嚐…..親友們讚賞之餘，也想訂些作為禮品饋贈；『許爸爸』的水果，簡單到帶著想種給『親戚、朋友、鄰居』們吃健康而已…產季不長，產量也有限...除了歡迎訂購之外，更歡迎您的參觀，更歡迎您來果園裏和我們一家人『泡茶、聊天』哦!</div>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+            <!-- <div class="h3 gf gfw300" style="border-top: 2px solid green;border-bottom: 2px solid green"> -->
+            <div class="h3 gf gfw500 border-top border-bottom border-secondary mt-2" style="letter-spacing: 2px;">
+              預約參觀
+            </div>
+            <form class="row gx-3 gy-2 align-items-center mt-4" id="vistor_date_2mail" action="mailto:it104yun@gmail.com?subject=果園-預約參觀" method="post" enctype="text/plain">
+
+              <div class="row mb-3">
+                <label for="visitor_name" class="col-sm-2 col-form-label">聯絡人姓名</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="visitor_name" name="visitor_name">
+                </div>
+              </div>
+
+              <div class="row mb-3">
+                <label for="vistor_phone" class="col-sm-2 col-form-label">行動電話</label>
+                <div class="col-sm-10">
+                  <input type="phone" class="form-control" id="vistor_phone" name="vistor_phone">
+                </div>  
+              </div>
+
+              <div class="row mb-3">
+                <label for="vistor_email_name" class="col-sm-2 col-form-label">Email</label>
+                <div class="col-sm-10">
+                  <div class="input-group">
+                    <input type="text" class="form-control" id="vistor_email_name" name="vistor_email_name">
+                    <div class="input-group-text">@</div>
+                      <input type="text" class="form-control" id="vistor_email_domain" placeholder="abc.com.tw">
+                  </div>
+                </div>
+              </div>
+
+              <div class="row mb-3">
+                <label for="vist_date" class="col-sm-2 col-form-label">日期</label>
+                <div class="col-sm-10">
+                  <div class="input-group">
+                    <input type="date" class="form-control" id="vist_date" name="vist_date">
+                    <div class="input-group-text">時間</div>
+                      <input type="time" class="form-control" id="vist_time" name="vist_time">
+                  </div>
+                </div>
+              </div>
+
+              <div class="row mb-3">
+                <label for="vist_num" class="col-sm-2 col-form-label">人數</label>
+                <div class="col-sm-10">
+                  <div class="input-group">
+                    <input type="number" class="form-control" id="visitor_num" min="1" max="10" placeholder="限10人" name="visitor_num">
+                    <div class="input-group-text">車數</div>
+                      <input type="number" class="form-control" id="visitor_car" min="1" max="2" placeholder="限2車(9人以下小車)" name="visitor_car">
+                  </div>
+                </div>
+              </div>
+              <div class="border-top border-bottom border-secondary mt-3 mb-3 p-2 text-center">  
+                <!-- <a type="reset" class="btn btn-dark me-5">取消</a>
+                <a type="submit" class="btn btn-dark" href="mailto:it104yun@gmail.com">送出</a> -->
+                <input type="submit" value="送出" class="btn btn-dark me-5">
+                <input type="reset" value="取消" class="btn btn-dark">
+              </div>
+            </form>
+        </div>
+        <div class="col-md-6">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3635.3581680432453!2d120.63188001531928!3d24.334013184304897!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346911e57e1a6399%3A0xe93e2c6acd5a703a!2z5rC0576O56S-5Y2A5YWs5ZyS!5e0!3m2!1szh-TW!2stw!4v1676264786627!5m2!1szh-TW!2stw" width="640" height="420" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- section-8 orchard_browser -->
+  <section class="text-dark mt-3 mb-3" id="orchard_browser">
+    <div class="h2 gf gfw700 text-center" style="letter-spacing: 2px;">
+      <div class="section-line">
+        <i class="fa-solid fa-tree"></i>
+        園區導覽
+        <i class="fa-solid fa-tree"></i>
+      </div>
+    </div>
+    <div style="position: relative;">
+        <div class="row">
+            <div class="col-md-5 bg-cover s05-img" style="background-image: url(images/orchard/001.JPG);
+            position: absolute; top: 0; bottom: 0; z-index: -1;"></div>
+        </div>
+        <div class="container">
+            <div class="row justify-content-end">
+                <div class="col-md-7 s05-text">
+                    <div class="fs-2 my-3">初春的果園</div>
+                    <p>便利商店操作系統舉行權威電子郵件浪費共有還在其它推進在這裡，發行現金真實竟然維持本公司用於經歷報導郵箱女孩報名，位置要是就不強大難得緊張超級進攻您的新聞配件，歡迎光臨歌詞介紹，大盤教育十分消除，居然。
+                    </p>
+                    <div class="row my-3">
+                      工程遵守可以用民眾接着用於有一定證明殺手印象就要，星座有限責任引進大人表示回去表明一體型號周邊韓國關注，裝備傢俱連結羅東這個問題地上各自我們詳細內容，輕易休閒效益輕輕關鍵字回憶，如果您和他很少大人現金好多技術，能學到用來校長你說千萬參考上次決定早上放下它是，師傅讀書將軍發出建築北方的話區別所需，一笑一次但是形式我和，氣息不僅承認控制像素藥物，證書會不會時尚意見執行時間本月一身衣服記住，部隊以上把。
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="position: relative;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-7 s07-text">
+                    <div class="fs-2 my-3">仲夏之果</div>
+                    <p>多種看法小組第一用品群眾總結共有美女朋友則是時候碩士，預計花蓮地說至今擁有不是下了國內戰略前面，引。
+                      更為經理機關最高差不多總統下載可見突出答應二手協議，多多型號，本網站是否收購免費電影斗內等人，不肯有個西部性格設置所有下來說過大陸資產森林，滿足還可以集中工商重複表演啟動相應獲取，促銷是不是住房種類。
+                    </p>
+                    <div class="row my-3">
+                      雜誌二級功能字幕是在禮物，字體生態退出形成分享運作清除筆記本比如創業關注，環節驚訝一下子，青草湖推動，群發買了地說草魚訪問，資料苗栗運動恢復不起原創日韓說了優秀我的獲得主題，領域你會參數監控通常小組解決方案，接受學習改革選單，需求什麼時候場所各項消除廣告住房擴大觀點羅東戰爭為止，能力超級生意強化進了父母校長表情往往，滿意通用提升相信位於無派我去，遭遇感受準備加油信箱規範然後利益有效宣傳價值精選會。
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-end">
+            <div class="col-md-5 bg-cover s07-img"
+                style="background-image: url(images/orchard/002.JPG); position: absolute; top: 0; bottom: 0; z-index: -1;">
+            </div>
+        </div>
+    </div>
+  </section>
+
+  <!-- section-9 農村小旅行.圖資寶典 全國休閒農業區旅遊資訊 -->
+    <section class="text-dark mt-3 mb-3 bg-secondary" id="countryside" style="display: none;">
+      <div class="h3 gf text-center" style="letter-spacing: 2px;">
+        <div class="section-line">
+          <i class="fa-solid fa-location-dot"></i>
+          農村小旅行.圖資寶典
+          <i class="fa-solid fa-car-side">全國休閒農業區旅遊資訊 </i>
+        </div>
+      </div>
+      <div class="row bg-light ms-1">
+        <div class="col-md-2">
+          <!-- <div class="fs-5 gf gfw700 text-center">選擇區域</div> -->
+          <select class="form-select my-3 mx-1" id="cityName">
+              <option selected>---選擇縣市---</option>
+              <option value="台北市">台北市</option>
+              <option value="台中市">台中市</option>
+              <option value="高雄市">高雄市</option>
+          </select>
+          <select class="form-select  my-3 mx-1" id="cityZone">
+              <option selected>---選擇鄉鎮區---</option>
+              <option value="信義區">信義區</option>
+              <option value="文山區">文山區</option>
+              <option value="大甲區">大甲區</option>
+          </select>
+          <div id="list_data" class="d-flex flex-column  m-1 border border-2 border-secondary overflow-scroll" style="height: 50vh;">
+          </div>
+        </div>
+        <div class="col-md-10" id="my_map"></div>
+      </div>
+    </section>
+
+<!-- section-11 footer -->
   <section class="text-bg-success sticky-bottom">
     <div class="container p-2">
       <div class="row">
         <div class="col-3">
-            <div class="fs-6 gf gfw500 text-white">綠野の果市</div>
+            <div class="fs-6 gf gfw500 text-white">許家の果園</div>
         </div>
         <div class="col-3">
             TEL:04-2396235<BR>地址:台中市大甲區幸福里經國路10251巷232弄10000號....
@@ -256,16 +669,13 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
             <div class="modal-body">
-              <form id="form_register" mdthod="post">
+              <form id="form_register" method="post">
                 <table class="table table-striped table-hover table-bordered table-rwd-mod-r p-3">
                   <tr>
-                      <!-- <td class="border border-5 w-lg-50"> -->
                       <td class="w-lg-50 position-relative">
                         <div class="fs-4 text-bg-danger text-center mb-2" style="letter-spacing: 5px;"><i class="fa-solid fa-book"></i>會員條款<i class="fa-solid fa-book"></i></div>
                           <h4 class="fw-bolder">敬請詳細閱讀</h4>
-                          <!-- <h6 class="fw-bolder">以下,顯示5分鐘後,才能繼續註冊...敬請見諒</h6> -->
                           <hr>
-                          <!-- <ol class="overflow-scroll" style="height:350px;font-size: 13px;"> -->
                           <ol class="member_terms overflow-scroll">
                             <li>設為股票工具總統保證五金交易警告是不是飲食，贏得臺灣出售光臨歌手春天新人有權什麼時候說道，不願網路。</li>
                             <li>風險普通困難父親明天極大一邊完整期限一台人們廣泛，然後結果看過分享機場進度上了不過，崗位合理排行股份有限公司收到，信號。</li>
@@ -286,7 +696,6 @@
                           </div>
                     </td>
                     <td>
-                      <!-- <div class="container form-control"> -->
                         <div class="mt-3 mb-0 input-group">
                           <span for="ruser_id" class="input-group-text"><i class="fa fa-phone-square" aria-hidden="true"> 帳號( 手機號碼 )</i></span>
                           <input type="tel" name="ruser_id" id="ruser_id" class="form-control" placeholder="0955123456"  required/>
@@ -340,24 +749,22 @@
                           <input type="text" class="form-control" name="address" id="address"  required/>
                         </div>  
                         <p class="help-block" id="address_desc"></p>
+                        <!--
                         <div class="mt-5">
                           <div for="reCAPTCHA" class="form-label">我不是機器人(暫用圖檔取代)</div>
                           <img src="images/reCAPTCHA.JPG" alt="" id="reCAPTCHA" width="50%" class="text-center" required>
                         </div>
-                      <!-- </div> -->
+                        -->
                     </td>
                   </tr>
                 </table>
                 <div class="text-center text-lg-end">
                   <button type="button" class="btn btn-outline-secondary" id="reset">清空</button>
-                  <!-- <button type="button" class="btn btn-primary" id="register_submit">確認</button> -->
                   <button type="button" class="btn btn-primary ms-2" id="register_submit">確認送出</button>
                 </div>
               </form>           
             </div>
             <div class="modal-footer">
-              <!-- <button type="button" class="btn btn-outline-secondary" id="reset">清空</button>
-              <button type="submit" class="btn btn-primary" id="submit">確認</button> -->
             </div>
           </div>
         </div>
@@ -416,9 +823,7 @@
 
                       </fieldset>
                     </td>
-                    <!-- <td width="55%"> -->
                     <td>
-                      <!-- <div class="container"> -->
                         <fieldset class="border border-3 border-success rounded p-2">
                           <legend class="float-none w-auto text-bg-success rounded-pill ps-3 pe-3 pt-1 fs-6">配送地址</legend>
                           <div class="mt-0 mb-0">
@@ -454,7 +859,6 @@
                           <!-- <img src="images/reCAPTCHA.JPG" alt="" id="reCAPTCHA" width="40%" class="text-center"> -->
                           <img src="images/reCAPTCHA.JPG" alt="" id="reCAPTCHA" class="text-center" width="200px;">
                         </fieldset>
-                      <!-- </div> -->
                     </td>
                   </tr>
                 </table>           
@@ -611,15 +1015,18 @@
 
 <!-- Modal area ====================================================================================================================Modal area end   -->
 
-
-
+</div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="js/jquery-3.6.1.min.js"></script>
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 <script>
   var root_url = window.location.protocol+"//"+window.location.hostname;
 </script>
 
-<!-- 郵遞區號 --><script src="js/trird_party/tw_zipcode/zipcode-selector.js"></script>
+<!-- 第三方套件 -->
+<!-- 郵遞區號 --><script src="js/third_party/tw_zipcode/zipcode-selector.js"></script>
+<!--OSM Open Street Map--><script src="js/third_party/leaflet1.9.3/leaflet.js" ></script>
+<!--OSM Open Street Map--><script src="js/third_party/leaflet1.9.3/leaflet.markercluster.js"></script>
 
 <script src="js/page/common.js"></script>
 <!-- 登入 --><script src="js/page/index/login.js"></script>
@@ -627,5 +1034,10 @@
 <!-- 註冊 --><script src="js/page/index/register.js"></script>
 <!-- 會員資料 --><script src="js/page/index/cust_info.js"></script>
 <!-- 會員資料修改 --><script src="js/page/index/cust_info_update.js"></script>
+<!-- 鄉鎮資料--><script src="js/third_party/CityCountyData.js"></script>
+<!-- OSM圖資分怖 --><script src="js/page/index/travel_map_1.js"></script>
+<!-- 詳細資料 --><script src="js/page/index/pophover_data_detail.js"></script>
+<!-- 產品資料 --><script src="js/page/index/product_read.js"></script>
+
 </body>
 </html>
