@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>***時間軸-串接地方美食資料***</title>
+    <link rel="stylesheet" href="../../common/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../common/css/commonA.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@900&display=swap" rel="stylesheet">
+    <style>
+        .block_title{
+            background-color: var(--MistyGreen_kaitoke);
+            color: var(--MistyGreen_swansdown);
+            border: 2px solid var(--MistyGreen_swansdown);
+            border-radius: 20px 20px 20px 20px;
+            letter-spacing: 5px;
+            font-family: 'Noto Sans TC', sans-serif;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="h1 m-3 block_title" style="text-align: center;">農村地方美食小吃特色料理</div>
+        <div class="timeline" id="row_data">
+            <!-- <div class="row m-3 timeline-pointer block_x align-items-center justify-content-center"> -->
+            <div class="row m-3 timeline-pointer block_x align-items-center">
+                <div class="col-md-6">
+                    <div class="h1 text-danger">ABC</div>
+                    <div class="h6 text-dark">之處一點實行都說原創，專業預測楠雅詳細訊息彼此改進，長度允許雜誌嚴格想到為你，通信保留心裡，規律床</div></div>
+                    <div class="col-md-6"><div class="bg-cover" style="background-image: url(images/beauty/beauty3.jpg);height: 250px;"></div></div></div>
+                    <!-- <a href="#" class="mybtn">詳細資料</a> -->
+            <!-- <div class="row m-3 flex-row-reverse timeline-pointer align-items-center justify-content-center"> -->
+            <div class="row m-3 flex-row-reverse timeline-pointer justify-content-center">
+                <div class="col-md-6">
+                    <div class="h1 text-danger">DEF</div>
+                    <div class="h6 text-dark">之處一點實行都說原創，專業預測楠雅詳細訊息彼此改進，長度允許雜誌嚴格想到為你，通信保留心裡，規律床。Lorem ipsum dolor sit, amet consectetur adipisicing elit. Provident quia, cupiditate quos sit voluptate reprehenderit mollitia consequuntur et libero laboriosam.
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="bg-cover" style="background-image: url(images/beauty/beauty3.jpg);height: 250px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../../common/js/bootstrap.min.js"></script>
+    <script src="../../common/js/jquery-3.6.1.min.js"></script>
+    <script>
+        $(function(){
+            $.ajax({
+                type:'GET',
+                url:'https://data.coa.gov.tw/Service/OpenData/ODwsv/ODwsvTravelFood.aspx',
+                success:showData,
+                error:function(){
+                    alert('Error--Can not Connection to OpenData address https://data.coa.gov.tw/Service/OpenData/ODwsv/ODwsvTravelFood.aspx');
+                }
+            })
+        });
+
+
+        function showData(data){
+            // for (var i=0; i<data.length; i++){
+            var obj;
+            var hStrBeg,hStr1,hStr2,hStr3,hStr3,hStr5,hStrEnd;
+            $('#row_data').empty();
+            for (var i=0; i<10; i++){
+                obj = data[i];
+                if ( i % 2 == 0 ){
+                    hStrBeg ='<div class="row m-3 timeline-pointer block_x align-items-center justify-content-center">';
+                } else {
+                    hStrBeg ='<div class="row m-3 flex-row-reverse timeline-pointer block_x align-items-center justify-content-center">';
+                }
+                hStr1 ='<div class="col-md-6">';
+                hStr2 ='<div class="fs-3 fw-bolder text-danger">店名:'+obj.Name+'</div>';
+                hStr3 ='<div class="fs-5 text-primary">'+obj.Tel+'</div>';
+                hStr4 ='<div class="fs-5 text-primary">'+obj.Address+'</div></div>';
+                hStr5 ='<div class="fs-6 text-dark">'+obj.FoodFeature+'</div></div>';
+                hStrEnd ='<div class="col-md-6"><div class="bg-cover" style="background-image: url('+obj.PicURL+');height: 300px;"></div></div></div>';
+                // $('#row_data').append(hStrBeg+hStr1+hStr2+hStr3+hStr4+hStr5+hStrEnd);
+                $('#row_data').append(hStrBeg+hStr1+hStr2+hStr3+hStr4+hStrEnd);
+            }
+        }
+
+    </script>
+</body>
+</html>

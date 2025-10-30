@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="../../common/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../common/css/commonA.css">
+
+    <script src="../../common/js/bootstrap.min.js"></script>
+    <script src="../../common/js/jquery-3.6.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
+    <script>
+        var flag_username = false;
+        var flag_password = false;
+        var flag_nickname = false;
+        var flag_height = false;
+        var flag_weight = false;
+
+        function item_check(target,target_c,min,max,msg){
+            let l = target.val().length;
+            if ( l <min || l >max ) {
+                target_c.html(msg+l);
+                target_c.attr('class', 'rounded-3 bg-dark text-danger fw-bold fs-6 mt-1');
+                return false;
+            } else {
+                target_c.empty();
+                return true;
+            }
+        }
+
+        function item_check_num(target,target_c,min,max,msg){
+            let v = target.val();
+            if ( v <min || v >max ) {
+                target_c.html(msg+v);
+                target_c.attr('class', 'rounded-3 bg-dark text-danger fw-bold fs-6 mt-1');
+                return false;
+            } else {
+                target_c.empty();
+                return true;
+            }
+        }
+
+        $(function(){
+
+            $('#submit_btn').click(function(){
+                if( flag_username && flag_password && flag_nickname && flag_nickname && flag_height && flag_weight){
+                    // alert('資料全部正確!');
+                    var this_data = {
+                        username : $('#username').val(),
+                        password : $('#password').val(),
+                        nickname : $('#nickname').val(),
+                        height : $('#height').val(),
+                        weight : $('#weight').val()
+                    };
+                    $.ajax({
+                        type: 'POST',
+                        url: '20221207-insert.php',
+                        data: this_data,
+                        success: function(){
+                            // alert("帳號新增成功!");
+                            Swal.fire(
+                                "帳號新增成功!", //標題 
+                                "", //訊息內容(可省略)
+                                "success" //圖示(可省略) success/info/warning/error/question
+                                //圖示範例：https://sweetalert2.github.io/#icons
+                            );
+                        },
+                        error: function(){
+                            // alert("Error!");
+                            Swal.fire(
+                                "帳號新增失敗", //標題 
+                                "...請洽後端系統管理員...", //訊息內容(可省略)
+                                "error" //圖示(可省略) success/info/warning/error/question
+                                //圖示範例：https://sweetalert2.github.io/#icons
+                            );
+                        }
+                    });
+                } else {
+                    // alert('資料有錯誤\n username:'+flag_username+"\n password:"+flag_password+"\n nickname:"+flag_nickname+"\n height:"+flag_height+"\n weight:"+flag_weight+"\n");
+                    Swal.fire(
+                                "資料有錯誤", //標題 
+                                "...請檢查資料後再上傳...", //訊息內容(可省略)
+                                "error" //圖示(可省略) success/info/warning/error/question
+                                //圖示範例：https://sweetalert2.github.io/#icons
+                            );
+                    
+                }
+            });
+            // Inline Listen----------------------------------------------------------------------------begin
+            // input propertychange : 只要有打字就觸發listen
+            $('#username').bind('input propertychange', function(){
+                flag_username = item_check( $(this) , $('#username_check') , 5 , 12 ,'字數不符規定:字數限制5~12個..........目前字數 : ' );
+            });
+
+            $('#password').bind('input propertychange',function(){
+                flag_password = item_check( $(this) , $('#password_check') ,8,12,'字數不符規定:字數限制8~12個..........目前字數 : ');
+            });
+
+            $('#nickname').bind('input propertychange',function(){
+                flag_nickname = item_check($(this),$('#nickname_check'),5,12,'字數不符規定:字數限制5~12個..........目前字數 : ');
+            });
+
+            $('#height').bind('input propertychange',function(){
+                flag_height = item_check_num($(this),$('#height_check'),80,200,'身高規定:限制80~200cm..........目前身高 : ');
+            });
+
+            $('#weight').bind('input propertychange',function(){
+                flag_weight = item_check_num($(this),$('#weight_check'),5,120,'體重規定:限制5~120kg..........目前體重 : ');
+            });
+            // Inline Listen----------------------------------------------------------------------------ending
+        })
+
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="row m-3">
+            <div class="col-6 offset-3">  <!--置中 3(offset)+6+3-->
+                <div class="display-6 rounded-pill bg-primary text-warning text-center fw-bolder" style="letter-spacing: 10px;">會員資料</div>
+                <div class="card mt-1">
+                    <div class="card-body">
+                        <form class="text-primary">
+                            <div>
+                                <div class="mt-3">
+                                    <label for="username" class="form-label fw-bold">帳號</label>
+                                    <input type="text" name="username" id="username" class="form-control" placeholder="字數限制5~12">
+                                    <div class="form-text" id="username_check"></div>
+                                </div>
+                                <div class="mt-3">
+                                    <label for="password" class="form-label fw-bold">密碼</label>
+                                    <input type="password" name="password" id="password" class="form-control" placeholder="字數限制8~12" required>
+                                    <div class="form-text" id="password_check"></div>
+                                </div>
+                                <div class="mt-3">
+                                    <label for="nickname" class="form-label fw-bold">暱稱</label>
+                                    <input type="text" name="nickname" id="nickname" class="form-control" placeholder="字數限制5~12個" required>
+                                    <div class="form-text" id="nickname_check"></div>
+                                </div>
+                                <div class="mt-3">
+                                    <label for="height" class="form-label fw-bold">身高</label>
+                                    <input type="number" name="height" id="height"   class="form-control" placeholder="限制80~200cm" min=80 max=200 required>
+                                    <div class="form-text" id="height_check"></div>
+                                </div>
+                                <div class="mt-3">
+                                    <label for="weight" class="form-label fw-bold">體重</label>
+                                    <input type="number" name="weight" id="weight"   class="form-control" placeholder="限制5~120kg" min=5 max=120 required>
+                                    <div class="form-text" id="weight_check"></div>
+                                </div>
+                                <div class="m-3 d-flex justify-content-around">
+                                    <input type="reset" class="btn btn-danger" name="clear_data" id="clear_data"  value="清除內容">
+                                    <button type="button" class="btn btn-primary" id="submit_btn">送出</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

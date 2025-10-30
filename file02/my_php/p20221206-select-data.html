@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="../../common/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../common/css/commonA.css">
+
+    <script src="../../common/js/bootstrap.min.js"></script>
+    <script src="../../common/js/jquery-3.6.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
+
+    <script>
+        $(function() {
+            $.ajax({
+                type: "GET",
+                url : "p20221206-select-data.php",
+                dataType: "json",
+                success: showdata,
+                error: function() {
+                    console.log("讀取後端資料失敗");
+                },
+            })
+        })
+
+        function showdata(data) {
+            var obj;
+            var htmlStr1,htmlStr2,htmlStr3;
+            // var table_style = ['table-primary','table-success','table-light','table-secondary','table-warning','table-danger','table-dark'];   //length=8
+            var table_style = ['table-primary','table-success','table-light','table-secondary','table-warning','table-danger'];   //length=7, 不要dark, 黑魯魯的很難看
+            for (var i = 0; i < data.length; i++) {
+                obj = data[i];
+                // console.log(obj);
+                // htmlStr1 = '<tr>';
+                htmlStr1 = '<tr class="'+table_style[i%7]+'">';
+                // htmlStr2 = '<td>'+obj.ID+'<td>'+obj.Username+'<td>'+obj.Password+'<td>'+obj.Nickname+'<td>'+obj.Height+'<td>'+obj.Weight+'<td>'+obj.Created_at;
+                htmlStr2 = '<td>'+obj.ID+'<td>'+obj.Username+'<td>'+obj.Nickname+'<td>'+obj.Height+'<td>'+obj.Weight+'<td>'+obj.Created_at;
+                htmlStr3 = '</tr>';
+                $("#showmsg").append(htmlStr1+htmlStr2+htmlStr3);
+            }
+        }
+    </script>
+</head>
+<body>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Username</th>
+                <!-- <th>Password</th> -->
+                <th>Nickname</th>
+                <th>Height</th>
+                <th>Weight</th>
+                <th>Created_at</th>
+            </tr>
+        </thead>
+        <tbody id="showmsg">
+        </tbody>
+    </table>
+</body>
+</html>

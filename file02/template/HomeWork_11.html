@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../../common/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../common/css/commonA.css">
+    <style>
+        .timeline-section {
+            position: relative;
+        }
+        .timeline-section:before{
+            position: absolute;
+            content: "";    /* 若把content, 會沒有東西顯示 */
+            top: 0;
+            bottom: 0;
+            background-color: var(--ComfyNeutral_gunmetal);
+            width: 5px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .timeline-section-pointer {
+            position: relative;
+        }
+        .timeline-section-pointer:before {
+            position: absolute;
+            content : "";
+            top: 0;
+            bottom: 0;
+            width: 25px;
+            height: 25px;
+            background-color: var(--ComfyNeutral_thatch);
+            border: 5px solid var(--ComfyNeutral_gunmetal);
+            border-radius: 50%;
+            left: 50%;
+            transform: translate(-50%);
+        }
+
+        .timeline-section-pointer:hover:before {
+            width: 50px;
+            height: 50px;
+            background-color: var(--ComfyNeutral_gunmetal);
+            border: 5px solid var(--ComfyNeutral_thatch);
+        }
+
+        @media screen and (max-width: 768px) {
+            /* .timeline-section:before{
+                display: none;
+            }
+            .timeline-section-pointer:before{
+                display: none;
+            } */
+
+            .timeline-section:before,.timeline-section-pointer:before{
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container py-3">
+        <div class="timeline-section">
+            <div class="row timeline-section-pointer">
+                <div class="col-md-6 mt-3">
+                    <div class="text pt-3">
+                        <div class="h3">標題001</div>
+                        <div class="h5">年輕人產權模式穩定，版權農業穩定，音樂。 物流再也利潤到處新鮮獲得效益兩種，俱樂。 陷入臉上休息時代女友大多改變想想，實踐。 </div>
+                    </div>
+                </div>
+                <div class="col-md-6 ">
+                    <div class="bg-cover" style="background-image: url(../images/beauty/beauty1.jpg);height: 200px;">                
+                    </div>
+                </div>
+            </div>
+            <div class="row  flex-row-reverse mt-3 timeline-section-pointer">
+                <div class="col-md-6">
+                    <div class="text pt-3">
+                        <div class="h3">標題002</div>
+                        <div class="h5">年輕人產權模式穩定，版權農業穩定，音樂。 物流再也利潤到處新鮮獲得效益兩種，俱樂。 </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="bg-cover" style="background-image: url(../images/beauty/beauty2.jpg);height: 200px;">                
+                    </div>
+                </div>
+            </div>
+            <div class="row timeline-section-pointer timeline-section-pointer">
+                <div class="col-md-6 mt-3">
+                    <div class="text pt-3">
+                        <div class="h3">標題003</div>
+                        <div class="h5">年輕人產權模式穩定，版權農業穩定，音樂。 物流再也利潤到處新鮮獲得效益兩種，俱樂。 </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="bg-cover" style="background-image: url(../images/beauty/beauty3.jpg);height: 200px;">                
+                    </div>
+                </div>
+            </div>
+            <div class="row flex-row-reverse mt-3 timeline-section-pointer">
+                <div class="col-md-6">
+                    <div class="text pt-3">
+                        <div class="h3">標題004</div>
+                        <div class="h5">年輕人產權模式穩定，版權農業穩定，音樂。 物流再也利潤到處新鮮獲得效益兩種，俱樂。 </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="bg-cover" style="background-image: url(../images/beauty/beauty4.jpg);height: 200px;">                
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row timeline-section-pointer">
+        </div>
+    </div>
+    </div>
+    <script src="js/bootstrap.min.js"></script>
+</body>
+</html>
