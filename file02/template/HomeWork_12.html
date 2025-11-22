@@ -27,14 +27,11 @@
     <div class="container">
         <div class="h1 m-3 block_title" style="text-align: center;">農村地方美食小吃特色料理</div>
         <div class="timeline" id="row_data">
-            <!-- <div class="row m-3 timeline-pointer block_x align-items-center justify-content-center"> -->
             <div class="row m-3 timeline-pointer block_x align-items-center">
                 <div class="col-md-6">
                     <div class="h1 text-danger">ABC</div>
                     <div class="h6 text-dark">之處一點實行都說原創，專業預測楠雅詳細訊息彼此改進，長度允許雜誌嚴格想到為你，通信保留心裡，規律床</div></div>
                     <div class="col-md-6"><div class="bg-cover" style="background-image: url(images/beauty/beauty3.jpg);height: 250px;"></div></div></div>
-                    <!-- <a href="#" class="mybtn">詳細資料</a> -->
-            <!-- <div class="row m-3 flex-row-reverse timeline-pointer align-items-center justify-content-center"> -->
             <div class="row m-3 flex-row-reverse timeline-pointer justify-content-center">
                 <div class="col-md-6">
                     <div class="h1 text-danger">DEF</div>
@@ -53,10 +50,10 @@
         $(function(){
             $.ajax({
                 type:'GET',
-                url:'https://data.coa.gov.tw/Service/OpenData/ODwsv/ODwsvTravelFood.aspx',
+                url:'https://data.moa.gov.tw/Service/OpenData/ODwsv/ODwsvTravelFood.aspx?&UnitId=193',
                 success:showData,
                 error:function(){
-                    alert('Error--Can not Connection to OpenData address https://data.coa.gov.tw/Service/OpenData/ODwsv/ODwsvTravelFood.aspx');
+                    alert('Error--Can not Connection to OpenData address https://data.moa.gov.tw/Service/OpenData/ODwsv/ODwsvTravelFood.aspx?&UnitId=193');
                 }
             })
         });
@@ -79,8 +76,9 @@
                 hStr3 ='<div class="fs-5 text-primary">'+obj.Tel+'</div>';
                 hStr4 ='<div class="fs-5 text-primary">'+obj.Address+'</div></div>';
                 hStr5 ='<div class="fs-6 text-dark">'+obj.FoodFeature+'</div></div>';
+                hStr6 ='<div class="fs-6 text-dark">'+obj.HostWords+'</div></div>';
                 hStrEnd ='<div class="col-md-6"><div class="bg-cover" style="background-image: url('+obj.PicURL+');height: 300px;"></div></div></div>';
-                // $('#row_data').append(hStrBeg+hStr1+hStr2+hStr3+hStr4+hStr5+hStrEnd);
+                // $('#row_data').append(hStrBeg+hStr1+hStr2+hStr3+hStr4+hStr5+hStr6+hStrEnd);
                 $('#row_data').append(hStrBeg+hStr1+hStr2+hStr3+hStr4+hStrEnd);
             }
         }

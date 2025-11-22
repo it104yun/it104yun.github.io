@@ -16,6 +16,7 @@
     <script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
 
     <script>
+
         $(function() {
             $.ajax({
                 type: "GET",
@@ -33,6 +34,7 @@
             var htmlStr1,htmlStr2,htmlStr3;
             // var table_style = ['table-primary','table-success','table-light','table-secondary','table-warning','table-danger','table-dark'];   //length=8
             var table_style = ['table-primary','table-success','table-light','table-secondary','table-warning','table-danger'];   //length=7, 不要dark, 黑魯魯的很難看
+
             for (var i = 0; i < data.length; i++) {
                 obj = data[i];
                 // console.log(obj);
@@ -62,5 +64,124 @@
         <tbody id="showmsg">
         </tbody>
     </table>
+
+    <script>
+        // 測試用的假資料
+        const userData = [
+            {
+                "ID": 1,
+                "Username": "user_alpha",
+                "Nickname": "AlphaKing",
+                "Height": 175,
+                "Weight": 70,
+                "Created_at": "2024-10-01T10:00:00Z"
+            },
+            {
+                "ID": 2,
+                "Username": "coder_beta",
+                "Nickname": "BetaCoder",
+                "Height": 182,
+                "Weight": 78,
+                "Created_at": "2024-10-05T15:30:00Z"
+            },
+            {
+                "ID": 3,
+                "Username": "gamer_gamma",
+                "Nickname": "GammaPlayer",
+                "Height": 165,
+                "Weight": 55,
+                "Created_at": "2024-10-10T08:15:00Z"
+            },
+            {
+                "ID": 4,
+                "Username": "writer_delta",
+                "Nickname": "DeltaWrites",
+                "Height": 170,
+                "Weight": 62,
+                "Created_at": "2024-10-15T12:45:00Z"
+            },
+            {
+                "ID": 5,
+                "Username": "designer_epsilon",
+                "Nickname": "EpsilonArt",
+                "Height": 178,
+                "Weight": 75,
+                "Created_at": "2024-10-20T18:00:00Z"
+            },
+            {
+                "ID": 6,
+                "Username": "traveler_zeta",
+                "Nickname": "ZetaExplorer",
+                "Height": 160,
+                "Weight": 50,
+                "Created_at": "2024-10-25T09:30:00Z"
+            },
+            {
+                "ID": 7,
+                "Username": "musician_eta",
+                "Nickname": "EtaMelody",
+                "Height": 185,
+                "Weight": 80,
+                "Created_at": "2024-10-30T14:10:00Z"
+            },
+            {
+                "ID": 8,
+                "Username": "student_theta",
+                "Nickname": "ThetaLearner",
+                "Height": 168,
+                "Weight": 60,
+                "Created_at": "2024-11-04T11:55:00Z"
+            },
+            {
+                "ID": 9,
+                "Username": "chef_iota",
+                "Nickname": "IotaCooks",
+                "Height": 173,
+                "Weight": 68,
+                "Created_at": "2024-11-09T16:20:00Z"
+            },
+            {
+                "ID": 10,
+                "Username": "photographer_kappa",
+                "Nickname": "KappaShot",
+                "Height": 179,
+                "Weight": 72,
+                "Created_at": "2024-11-14T19:40:00Z"
+            }
+        ];
+
+        const table_style = ['table-primary', 'table-success', 'table-light', 'table-secondary', 'table-warning', 'table-danger']; // length = 6
+
+        /**
+         * 根據 userData 產生表格的 HTML 列 (rows)。
+         */
+        function generateTableRows() {
+            // 1. 使用 map 迭代陣列，並為每個用戶產生一個 HTML <tr> 字串
+            const allHtmlRows = userData.map((user, index) => {
+                // 使用取餘數操作符 (%) 確保索引在 table_style 陣列長度內
+                const rowClass = table_style[index % table_style.length];
+
+                // 使用模板字串 (Template Literals) 讓 HTML 結構更清晰
+                return `
+                    <tr class="${rowClass}">
+                        <td>${user.ID}</td>
+                        <td>${user.Username}</td>
+                        <td>${user.Nickname}</td>
+                        <td>${user.Height} cm</td>
+                        <td>${user.Weight} kg</td>
+                        <td>${user.Created_at}</td>
+                    </tr>
+                `;
+            }).join(''); // 2. 使用 join('') 將字串陣列合併為一個單一的 HTML 字串
+
+            // 3. 執行 DOM 插入操作，提高效率
+            $("#showmsg").append(allHtmlRows);
+        }
+
+        // 建議在文件載入完成後執行此函式
+        $(document).ready(function() {
+            generateTableRows();
+        });
+    </script>
 </body>
 </html>

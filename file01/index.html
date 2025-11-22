@@ -3,6 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../common/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../common/css/commonA.css">
+
+    
+
+    <!-- Google fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@900&display=swap" rel="stylesheet">
+
+    <!-- Google icons -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+
+    <script src="../common/js/bootstrap.min.js"></script>
     <title>蘇麗雲 - 履歷表</title>
     <style>
         body {
@@ -27,6 +41,7 @@
             border-bottom: 4px solid #004a8f; 
             padding-bottom: 12px;
             margin-bottom: 25px;
+            text-align: center;
         }
         h2 {
             color: #004a8f; 
@@ -68,13 +83,13 @@
         }
         .tag {
             display: inline-block;
-            background-color: #20c997; 
+            background-color: #1e90ff; 
             color: #ffffff; 
             padding: 4px 10px; 
             margin: 5px 5px 5px 0;
             border-radius: 3px;
             font-size: 0.9em;
-            font-weight: 500;
+            font-weight: 600;
         }
         /* 突出顯示的專案樣式 */
         .highlight-project {
@@ -99,23 +114,51 @@
         .skill-list li {
             padding: 3px 0;
         }
+
+        .myPharse{
+            width: auto;
+            background-color: 	DarkBlue; 
+            text-align: center;
+            letter-spacing: 2px;
+            color: #ffff00;
+            font-size: 24px;
+            font-weight: bolder;
+            padding: 5px; 
+            border-radius: 20px;
+        }
+
+        .DaTo{
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            vertical-align: middle;
+            margin-right: 15px;
+        }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <h1>蘇麗雲</h1>
+        <div class="col-3 d-flex align-items-center justify-content-start">
+            <div>
+                <a href="../index.html" class="rouned-pill mybtn">&nbsp;首頁&nbsp;
+                </a>
+            </div>
+        </div>
+        <h1><img src="./liyun_DaTo.jpg" class="DaTo">蘇麗雲( Sophia )</h1>
+        <div class="myPharse">Experience Solves, Learning Evolves.</div>
         <div class="summary-box">
-            <p><strong>工作理念:</strong> 憑經驗化解難題,藉學習展望未來</p>
-            <p><strong>總年資:</strong> 25年(含)以上工作經歷</p>
+            <p><strong>總 年 資:</strong> 25年(含)以上工作經歷</p>
             <p><strong>最近工作:</strong> 中良工業股份有限公司 | 全端軟體工程師</p>
-            <p><strong>希望職稱:</strong> ERP程式設計師, 軟體工程師, 後端工程師, 系統分析師, PM, MIS資訊人員</p>
-            <p><strong>核心能力:</strong></p>
-            <p>
-                <span class="tag">#ERP系統流程與程式開發經驗豐富</span>
-                <span class="tag">#熟悉資料與報表分析應用</span>
-                <span class="tag">#全端開發與系統架構設計能力</span>
-                <span class="tag">#專案管理與跨部門協作能力</span>
+            <p><strong>希望職稱:</strong> 軟體工程師，ERP軟體工程師，全端軟體工程師，後端工程師，資訊工程師</p>
+            <p><strong>核心能力:</strong>
+                <span class="tag">熟悉全端</span>
+                <span class="tag">熟悉ERP</span>
+                <span class="tag">熟悉資料庫</span>
+                <span class="tag">熟悉企業流程</span>
+                <span class="tag">責任感強</span>
+                <span class="tag">能獨立運作</span>
+                <span class="tag">能團隊合作</span>
             </p>
         </div>
 
