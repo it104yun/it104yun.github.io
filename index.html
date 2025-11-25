@@ -38,8 +38,8 @@
                             <span class="material-symbols-outlined align-middle">
                                 以展示靜態網頁為主，部分專案作品有後端程式PHP，資料庫採用MySQL。
                                 其他作品如有使用到JavaScript語言，則以前端互動式網頁為主。<br>
-                                <p style="color:blue;">後端Python、Django/Flask/APIFlask、Node.js語言作品，請參考我的GitHub頁面：<br><a href="https://github.com/it104yun" target="_blank" style="font-size: 20px;font-weight: bolder;">My Github</a></p>
-                                最近更新日期：2025/11/23
+                                <p style="color:blue;">專案(code)：Python、Django/Flask/APIFlask、PHP、Node.js語言作品，請參考我的GitHub頁面：<a href="https://github.com/it104yun" target="_blank" style="font-size: 18px;font-weight: bolder;">More...</a></p>
+                                更新日期：<p id="current-date" style="display: inline;"></p>
                             </span>
                         </span>
                     <div class="row d-flex align-items-center mt-3">
@@ -57,5 +57,26 @@
             </div>
         </div>
     </div>
+    <script>
+        // 獲取一個新的日期物件 (包含當前日期和時間)
+        const now = new Date();
+        
+        // 將日期物件轉換為易讀的字串（例如：Wed Nov 26 2025 01:21:19 GMT-0600 (Central Standard Time)）
+        // 您也可以使用 toLocaleDateString() 或 toLocaleString() 來取得更本地化的格式
+        const dateString = now.toLocaleString('zh-TW', { 
+            year: 'numeric', 
+            month: 'long', 
+            day: 'numeric', 
+            // hour: '2-digit', 
+            // minute: '2-digit', 
+            // second: '2-digit' 
+        });
+
+        // 找到 id 為 "current-date" 的 HTML 元素
+        const dateElement = document.getElementById('current-date');
+        
+        // 將日期字串放入該元素的內容中
+        dateElement.textContent = dateString;
+    </script>
 </body>
 </html>
